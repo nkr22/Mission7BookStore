@@ -2,24 +2,30 @@
     ViewData["Title"] = "Home Page";
 
 }
-@*@model List<BookStore.Models.Book>*@
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div>
-    @*@foreach (Mission7BookStore b in Model){ 
-        <h3>@b.Title</h3>
-
-        <ul>
-            <li>Book Author: @b.Author</li>
-            <li>Book Publisher: @b.Publisher</li>
-            <li>Book ISBN: @b.ISBN</li>
-            <li>Book Classification: @b.Classification</li>
-            <li>Book Classification: @b.Classification</li>
-            <li>Book Classification: @b.Classification</li>
-            <li>Book Classification: @b.Classification</li>
-        </ul>
-    }*@
+@model BooksViewModel
+@foreach (var b in Model.Books)
+{
+    <div class="card card-outline-primary m-1 p-1">
+        <div class="bg-faded p-1">
+            <h4>
+                @b.Title
+            </h4>
+        </div>
+        <div class="card-text p-1">
+            <ul>
+                <li>Book Author: @b.Author</li>
+                <li>Book Publisher: @b.Publisher</li>
+                <li>Book ISBN: @b.Isbn</li>
+                <li>Book Classification: @b.Classification</li>
+                <li>Book Category: @b.Category</li>
+                <li>Book Page Count: @b.PageCount</li>
+                <li>Book Price: @b.Price</li>
+            </ul>
+        </div>
+    </div>
+}
+<div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
 </div>
