@@ -11,6 +11,6 @@ namespace Mission7BookStore.Models.ViewModels
         public int BooksPerPage { get; set; }
         public int CurrentPage { get; set; }
         //figure out how many pages that we need
-        public int TotalPages => (int) Math.Ceiling(((double) TotalNumBooks / BooksPerPage));
+        public int TotalPages => (int) Math.Ceiling((double)TotalNumBooks / BooksPerPage);
     }
 }
