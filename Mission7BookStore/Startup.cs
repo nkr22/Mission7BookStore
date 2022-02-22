@@ -54,9 +54,9 @@ namespace Mission7BookStore
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute("pagination",
-                    "Books/Page{pageNum}",
-                    new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute(name:"pagination",
+                    pattern:"Books/Page{pageNum}", 
+                    defaults: new { Controller = "Home", action = "Index" });
                 endpoints.MapDefaultControllerRoute();
             });
         }
