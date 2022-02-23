@@ -21,13 +21,14 @@ namespace Mission7BookStore.Controllers
         }
          
         //this is now making the repo a temp variable that we can pass to our index page
-        public IActionResult Index(int pageNum=1)
+        public IActionResult Index(string bookCategory, int pageNum=1)
         {
             int pageSize = 10;
 
             var x = new BooksViewModel
             {
                 Books = repo.Books
+                .Where(b=>b.Category==bookCategory || bookCategory==null)
                 .OrderBy(b => b.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
