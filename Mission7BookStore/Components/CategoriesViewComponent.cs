@@ -17,7 +17,7 @@ namespace Mission7BookStore.Components
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedCategory= RouteData?.Values["bookCategory"];
+            ViewBag.SelectedType= RouteData?.Values["bookCategory"];
             var categories = repo.Books
                 .Select(x => x.Category)
                 .Distinct()
