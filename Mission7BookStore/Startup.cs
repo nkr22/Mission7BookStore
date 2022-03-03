@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,9 +32,12 @@ namespace Mission7BookStore
                   options.UseSqlite(Configuration.GetConnectionString("BookstoreDBConnection"))
                   );
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+            services.AddScoped<ICheckoutRepository, EFCheckoutRepository>();
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
 
