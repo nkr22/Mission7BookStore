@@ -1,0 +1,9 @@
+﻿.table-striped td:hover{
+    color:blue;
+}
+
+.scroll-container {
+    height: 50%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}

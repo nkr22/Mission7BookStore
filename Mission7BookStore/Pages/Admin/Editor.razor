@@ -1,0 +1,91 @@
+﻿@page "/admin/books/edit/{id:long}"
+@page "/admin/books/create"
+@inherits OwningComponentBase<IBookstoreRepository>
+<style>
+    div.validation-message {
+        color: rgb(220, 53, 69);
+        font-weight: 500
+    }
+</style>
+<h3 class="bg-@ThemeColor text-white text-center p-1">@TitleText a Product</h3>
+<EditForm Model="book" OnValidSubmit="SaveBook">
+    <DataAnnotationsValidator />
+    @if (book.BookId != 0)
+    {
+        <div class="form-group">
+            <label>ID</label>
+            <input class="form-control" disabled value="@book.BookId" />
+        </div>
+    }
+    <div class="form-group">
+        <label>Title</label>
+        <ValidationMessage For="@(() => book.Title)" />
+        <InputText class="form-control" @bind-Value="book.Title" />
+    </div>
+    <div class="form-group">
+        <label>Author</label>
+        <ValidationMessage For="@(() => book.Author)" />
+        <InputText class="form-control" @bind-Value="book.Author" />
+    </div>
+    <div class="form-group">
+        <label>Publisher</label>
+        <ValidationMessage For="@(() => book.Publisher)" />
+        <InputText class="form-control" @bind-Value="book.Publisher" />
+    </div>
+    <div class="form-group">
+        <label>Isbn</label>
+        <ValidationMessage For="@(() => book.Isbn)" />
+        <InputText class="form-control" @bind-Value="book.Isbn" />
+    </div>
+    <div class="form-group">
+        <label>Classification</label>
+        <ValidationMessage For="@(() => book.Classification)" />
+        <InputText class="form-control" @bind-Value="book.Classification" />
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <ValidationMessage For="@(() => book.Category)" />
+        <InputText class="form-control" @bind-Value="book.Category" />
+    </div>
+    <div class="form-group">
+        <label>Page Count</label>
+        <ValidationMessage For="@(() => book.PageCount)" />
+        <InputNumber class="form-control" @bind-Value="book.PageCount" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <ValidationMessage For="@(() => book.Price)" />
+        <InputNumber class="form-control" @bind-Value="book.Price" />
+    </div>
+    <button type="submit" class="btn btn-@ThemeColor">Save</button>
+    <NavLink class="btn btn-secondary" href="/admin/books">Cancel</NavLink>
+</EditForm>
+@code {
+    public IBookstoreRepository Repository => Service;
+    [Inject]
+    public NavigationManager NavManager { get; set; }
+    [Parameter]
+    public long Id { get; set; } = 0;
+    public Book book { get; set; } = new Book();
+    protected override void OnParametersSet()
+    {
+        if (Id != 0)
+        {
+            book = Repository.Books.FirstOrDefault(b => b.BookId == Id);
+        }
+    }
+    public void SaveBook()
+    {
+        if (Id == 0)
+        {
+            Repository.CreateBook(book);
+        }
+        else
+        {
+            Repository.SaveBook(book);
+        }
+        NavManager.NavigateTo("/admin/books");
+    }
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+}

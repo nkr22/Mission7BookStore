@@ -28,6 +28,9 @@ namespace Mission7BookStore.Models
         public string Zip { get; set; }
         [Required(ErrorMessage ="Please enter a Country. ")]
         public string Country { get; set; }
-        public bool Anonymous { get; set; }
+        [Required(ErrorMessage = "Please mark whether this is Anonymous")]
+        public bool Anonymous { get; set; } = false;
+        [BindNever]
+        public bool Shipped { get; set; } = false;
     }
 }

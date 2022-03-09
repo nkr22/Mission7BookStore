@@ -1,0 +1,15 @@
+﻿@page "/admin"
+@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookstore Admin</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <base href="/" />
+    <link href="~/css/extra.css" rel="stylesheet" />
+</head>
+<body>
+    <component type="typeof(Mission7BookStore.Pages.Admin.Routed)" render-mode="Server" />
+    <script src="/_framework/blazor.server.js"></script>
+</body>
+</html>
