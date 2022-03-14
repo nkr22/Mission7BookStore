@@ -2,7 +2,7 @@
 
 @inherits OwningComponentBase<ICheckoutRepository>
 <CheckoutTable TableTitle="Unshipped Orders"
-            Checkouts="UnshippedOrders" ButtonLabel="Ship" OrderSelected="ShipOrder" />
+            Checkouts="UnshippedOrders" ButtonLabel="Ship" OrderSelected="ShipOrder"/>
 <CheckoutTable TableTitle="Shipped Orders"
             Checkouts="ShippedOrders" ButtonLabel="Reset" OrderSelected="ResetOrder" />
 <button class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</button>

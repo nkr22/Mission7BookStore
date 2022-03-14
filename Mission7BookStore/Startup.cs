@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,11 @@ namespace Mission7BookStore
             services.AddDbContext<BookstoreContext>(options =>
                   options.UseSqlite(Configuration.GetConnectionString("BookstoreDBConnection"))
                   );
+            services.AddDbContext<AppIdentityDBContext>(options =>
+                  options.UseSqlite(Configuration.GetConnectionString("IdentityConnection"))
+                  );
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDBContext>();
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
             services.AddScoped<ICheckoutRepository, EFCheckoutRepository>();
             services.AddRazorPages();
@@ -61,6 +67,7 @@ namespace Mission7BookStore
             app.UseSession();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -86,6 +93,8 @@ namespace Mission7BookStore
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
+
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
